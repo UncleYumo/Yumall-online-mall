@@ -1,0 +1,32 @@
+{
+  // "extends": "@vue/tsconfig/tsconfig.json",
+  "compilerOptions": {
+    "sourceMap": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "lib": ["esnext", "dom"],
+    "types": [
+      // uni-app + Vue 3 使用 Vite 构建，需要安装 vite
+      "vite/client",
+      // uni API 相关的 TypeScript 类型，需要安装 @dcloudio/types
+      "@dcloudio/types",
+      // my API 相关的 TypeScript 类型，需要安装 @mini-types/alipay
+      "@mini-types/alipay",
+      // wx API 相关的 TypeScript 类型，需要安装 miniprogram-api-typings
+      "miniprogram-api-typings",
+      // 为 uni-app 组件提供 TypeScript 类型，需要安装 @uni-helper/uni-app-types
+      "@uni-helper/uni-app-types",
+      // 为 uni-ui 组件提供 TypeScript 类型，需要安装 @uni-helper/uni-ui-types
+      "@uni-helper/uni-ui-types"
+    ],
+    "ignoreDeprecations": "5.0"
+  },
+  "vueCompilerOptions": {
+    // experimentalRuntimeMode 已废弃，现调整为 nativeTags，请升级 Volar 插件至最新版本
+    // "nativeTags": ["block", "component", "template", "slot"]  
+    "plugins": ["@uni-helper/uni-app-types/volar-plugin"]
+  },
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "*.d.ts"]
+}
