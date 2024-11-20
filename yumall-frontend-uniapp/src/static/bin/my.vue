@@ -2,7 +2,7 @@
   
   <div class="my">
     <div>
-      <div>会员信息: {{ memberStore.profile?.nickname ?? '未设置昵称' }}</div>
+      <div>会员信息: {{ memberStore.profile.nickname }}</div>
       <div>
         <input focus placeholder="请输入昵称" v-model="nickename">
       </div>
@@ -31,9 +31,9 @@
 </template>
 
 <script setup lang="ts">
-import { useMemberStore } from '@/stores/modules/member';
+import { useMemberStore } from '@/stores/modules/member'
 import { ref } from 'vue';
-import { http } from '@/utils/http';
+import { http } from '@/utils/http'
 
 const memberStore = useMemberStore();
 const clearInfo = () => {
@@ -54,15 +54,18 @@ const submitInfo = () => {
   })
 }
 
-const testRequest = async () => {
-  const res = await http<String[]>({
-    method: "GET",
-    url: '/home/banner',
-    header: {}
+const testRequest = () => {
+  uni.request({
+    method: 'GET',
+    url: url.value
+  }).then(res => {
+    // 将返回的对象转换为字符串
+    let dataStr = JSON.stringify(res.data, null, 2); // 使用缩进，便于阅读
+    console.log(dataStr);
+    // 更新 textarea 的值
+    url.value = dataStr;
   })
-  console.log(res);
 }
-
 
 </script>
 

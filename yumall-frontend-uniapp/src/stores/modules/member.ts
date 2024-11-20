@@ -2,39 +2,38 @@ import { defineStore } from "pinia";
 import { ref } from "vue";
 
 export const useMemberStore = defineStore(
-    'member',
-    () => {
-        // Here is the state of member module
-        const profile = ref()
+  "member",
+  () => {
 
-        // Store info of member when login
-        const setProfile = (val: any) => {
-            profile.value = val
+    const profile = ref()
+
+    const setPrefile = (val: any) => {
+        profile.value = val
+    }
+
+    const clearProfile = () => {
+        profile.value = undefined
+    }
+
+    return {
+        profile,
+        setPrefile,
+        clearProfile
+    }
+
+  },
+
+  {
+    // unistorage: true, // 开启后对 state 的数据读写都将持久化
+    persist: {
+        storage: {
+            getItem(key: any) {
+                return uni.getStorageSync(key)
+            },
+            setItem(key: any, value: any) {
+                return uni.setStorageSync(key, value)
+            }
         }
-
-        // Clear the store info of member when logout
-        const clearProfile = () => {
-            profile.value = undefined
-        }
-
-        // Return the state and methods of member module
-        return {
-            profile,
-            setProfile,
-            clearProfile
-        }
-    },
-    // {
-
-    //     persist: {
-    //         storage: {
-    //             getItem(key) {
-    //                 return uni.getStorageSync(key)
-    //             },
-    //             setItem(key, value) {
-    //                 return uni.setStorageSync(key, value)
-    //             }
-    //         }
-    //     }
-    // }
+    }
+  }
 )
