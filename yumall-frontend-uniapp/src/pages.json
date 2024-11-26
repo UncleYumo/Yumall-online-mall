@@ -43,7 +43,7 @@
 		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "Yumall",
 		"navigationBarBackgroundColor": "#27BA9B",
-		"backgroundColor": "#F8F8F8"
+		"backgroundColor": "#f7f7f7"
 	},
 	"tabBar": {
 		"list": [
