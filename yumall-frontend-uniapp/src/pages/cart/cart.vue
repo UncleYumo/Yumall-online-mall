@@ -1,11 +1,9 @@
 <template>
-  <div class="category">cart</div>
+  <div class="cart">cart</div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts">
 
 </script>
 
-<style scoped>
-  
-</style>
+<style scoped></style>

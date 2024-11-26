@@ -16,12 +16,12 @@ const httpInterceptor = {
         }
         const memberStore = useMemberStore()
         const token = memberStore.profile?.token
-        console.log(token);
+        // console.log(token);
         if (token) {
             options.header['Authorization'] = token
-            console.log("TOKEN: " + token);
+            // console.log("TOKEN: " + token);
         }
-        console.log(options)
+        // console.log(options)
     }
 }
 
@@ -39,7 +39,31 @@ export const http = <T> (options: UniApp.RequestOptions) => {
         uni.request({
             ...options,  // 合并请求参数
             success(res) {
-                resolve(res.data as Data<T>)
+                
+                if (res.statusCode >= 200 && res.statusCode < 300) {
+                    resolve(res.data as Data<T>)
+                } else if (res.statusCode === 401) {
+
+                    // 401 未授权，跳转到登录页面
+                    const memberStore = useMemberStore()
+                    memberStore.clearProfile()
+                    uni.navigateTo({ url: '/pages/login/login' })
+                    reject(res)
+                } else {
+                    // 其他错误
+                    uni.showToast({
+                        icon: 'none',
+                        title: (res.data as Data<T>).msg as string || '请求失败，请稍后再试'
+                    })
+                    reject(res)
+                }
+            },
+            fail(err) {
+                uni.showToast({
+                    icon: 'none',
+                    title: '网络错误，请稍后再试'
+                })
+                reject(err)
             }
         })
     })
