@@ -1,13 +1,14 @@
 <template>
   <view class="category-panel">
     <view class="category">
-      <navigator url="/pages/index/index" open-type="navigate" hover-class="navigator-hover" v-for="item in 10">
+      <navigator url="/pages/index/index" open-type="navigate" hover-class="navigator-hover"
+        v-for="(item, index) in list">
 
-        <image
-          class="icon"
-          :src="`https://pcapi-xiaotuxian-front-devtest.itheima.net/miniapp/images/nav_icon_${item}.png`"
-        >
-        </image>
+        <view class="icon-wrapper">
+          <image :src="item.icon" class="icon">
+          </image>
+          <text class="name">{{ item.name }}</text>
+        </view>
 
       </navigator>
     </view>
@@ -15,6 +16,15 @@
 </template>
 
 <script setup lang="ts">
+import { CategroyItem } from '@/types/home';
+
+
+defineProps<{
+  list: CategroyItem[]
+}>()
+
+// const categoryList: Ref<CategroyItem[]> = ref([])
+
 
 </script>
 
@@ -40,11 +50,18 @@
     // background-color: white; // 设置背景色
 
     // 子元素image
-    .icon {
-      // border: 1px solid #1c1c1c;
-      width: 130rpx;
-      height: 130rpx;
-      // margin: 10rpx 0; // 上下间距
+    .icon-wrapper {
+      display: flex; // 使其成为一个 flex 容器
+      flex-direction: column; // 垂直排列
+      justify-content: center; // 居中
+      margin: 10rpx 0; // 上下间距
+      .icon {
+        width: 130rpx;
+        height: 130rpx;
+      }
+      .name {
+        margin: 0 auto;
+      }
     }
   }
 }
